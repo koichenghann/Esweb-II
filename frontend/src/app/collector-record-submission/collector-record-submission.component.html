@@ -1,0 +1,184 @@
+<user-nav (window:resize)="onResize($event)">
+  <!--title bar with pic-->
+  <div class="page-header" [style.background]="'url(/assets/home-pic/recycler_bla35_169.jpg)'">
+    <div class="container-fluid ">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+              <div class="page-caption">
+                <h1 class="page-title">{{ isAddingSubmission? 'Add Submission':isRecordingSubmission? 'Record Submission':'View Appointment'}}</h1>
+              </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <main>
+    <!--{{isAddingSubmission}}
+    {{ collectors }}
+    current collector's totalPoints: {{ totalPoints }}
+    <br>materials: {{ materials }}
+    {{ ecoLevel }}
+    {{ currentRoute }}
+    {{ selectedAppointment.materialName }} {{ selectedAppointment.recyclerUsername}}
+    <br>reset dummy submissions: <a mat-button class="btn-reset" (click)="reset()">reset</a>-->
+    <div class="container-fluid con-main">
+
+      <div *ngIf="!isAddingSubmission && !isRecordingSubmission" class="row mt-2 row-table-appointment">
+        <div class="row row-control ">
+          <h2>Appointments</h2>
+          <div class="spacer"></div>
+          <div class="row row-action">
+            <label *ngIf="!mobile" for="search_recycler">{{ userType=='collector'? 'Recycler':'Collector'}}:</label>
+            <div ng-controller="myCtrl">
+              <input #myInput (keyup)="findUser(myInput.value)" ng-model="myValue"  name="search_recycler" value="" placeholder=" e.g. username" class="input-search">
+            </div>
+          </div>
+        </div>
+
+        <mat-card class="card-table-appointment">
+          <table *ngIf="dataSource.length>0" class="table table-appointment table-hover">
+            <thead>
+              <tr>
+                <th>{{userType=='collector'? 'Recycler':'Collector'}}</th>
+                <th>Proposed Date</th>
+                <th>Material</th>
+                <th *ngIf="!mobile">Status</th>
+                <th *ngIf="userType=='collector'"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let appt of dataSource" (click)="selectAppointment(appt)">
+                <td>{{ userType=='collector'? appt.recyclerUsername : appt.collectorUsername }}</td>
+                <td>{{ appt.proposedDate }}</td>
+                <td>{{ appt.materialName }}</td>
+                <td *ngIf="!mobile">{{ appt.status }}</td>
+                <th *ngIf="userType=='collector'"><mat-icon >navigate_next</mat-icon></th>
+              </tr>
+            </tbody>
+          </table>
+          <div *ngIf="dataSource.length==0" class="text-center p-3">
+            No Appointment{{ appointments.length>0? userType=="collector"? ' with recycler \'' + myInput.value + '\'' :' with collector \'' + myInput.value + '\'':'' }}  <!--{{ myInput.length>0? myInput.value : 'No Appointment' }}-->
+          </div>
+        </mat-card>
+      </div>
+
+
+      <!--
+        5. The Collector selects the submissionID that matches the material
+        to be submitted and enters the weight in kg.
+
+        5b. If the submission is without a prior appointment, the Collector
+        records the type of material, Recycler’s username and weight in Kg.
+        The submission details are updated accordingly.
+
+        form details:
+          1. type of material
+          2. recycler username
+          3. weight in kg (mandatory)
+      -->
+
+      <!-- personal detail input group START -->
+      <div *ngIf="isAddingSubmission || isRecordingSubmission " class="row mt-2 row-form-submission">
+        <!-- personal detail button group and header START -->
+        <div class="row row-control ">
+          <h2>Submission Details</h2>
+          <div class="spacer"></div>
+          <div class="row row-action">
+            <a mat-button  class="btn-cancel" (click)="selectedAppointment={}; isRecordingSubmission=false; setFormGroup(); form_submission.get('material').enable(); form_submission.get('recycler').enable()">Cancel</a>
+            <a mat-button  id="btnEdit1" (click)="submit()" class="btn-edit"> Submit </a>
+          </div>
+        </div>
+        <!-- personal detail button group and header END -->
+        <!-- personal detail from START -->
+        <mat-card class="card-form-submission">
+          <!-- recycler form START -->
+
+
+            <form [formGroup]="form_submission">
+              <mat-form-field appearance="outline">
+                <mat-label>Material</mat-label>
+                <input
+                  name="material"
+
+                  matInput
+                  type="text"
+
+                  formControlName="material"
+                  (ngModelChange)="validateSubmissionInput('submission_material')"
+                  >
+                  <mat-error *ngIf="form_submission.get('material').invalid">{{ submission_materialError  }}</mat-error>
+                  <div *ngIf="isAddingSubmission" class="input-group-append">
+                      <mat-select  class="pat-search" disableOptionCentering=true [(value)]="selectedMaterial" (selectionChange)="selectionChanged(selectedMaterial)">
+                          <mat-option *ngFor="let material of materials" [value]="material.materialName">{{ material.materialName }}</mat-option>
+
+                      </mat-select>
+                  </div>
+              </mat-form-field>
+
+
+              <mat-form-field appearance="outline">
+                <mat-label>Recycler</mat-label>
+                <input
+                  name="recycler"
+                  matInput
+                  type="text"
+
+                  formControlName="recycler"
+                  (ngModelChange)="validateSubmissionInput('submission_recycler')"
+                  placeholder="new password"
+                  >
+                  <mat-error *ngIf="form_submission.get('recycler').invalid">{{ submission_recyclerError }}</mat-error>
+                  <!--<div class="input-group-append">
+                      <mat-select  *ngIf="isAddingSubmission" class="pat-search" disableOptionCentering=true>
+                          <mat-option value="Basic">Basic</mat-option>
+                          <mat-option value="Advanced">Advanced</mat-option>
+                      </mat-select>
+                  </div>-->
+              </mat-form-field>
+
+
+              <mat-form-field appearance="outline">
+                <mat-label>Weight</mat-label>
+                <input
+                  name="weight"
+                  matInput
+                  type="number"
+
+                  formControlName="weight"
+                  (ngModelChange)="validateSubmissionInput('submission_weight')"
+
+                  >
+                  <mat-error *ngIf="form_submission.get('weight').invalid">{{ submission_weightError }}</mat-error>
+              </mat-form-field>
+
+
+            </form>
+
+          <!-- recycler form END -->
+        </mat-card>
+        <!-- personal detail from END -->
+      </div>
+      <!-- personal detail input group END -->
+
+
+
+
+
+
+
+
+    </div>
+  </main>
+</user-nav>
+
+
+<!--
+
+  submission (Appointment details):
+    1. proposed date
+    2. material name
+    3. status
+    4, recycler username (if recycler not specified)
+
+
+-->

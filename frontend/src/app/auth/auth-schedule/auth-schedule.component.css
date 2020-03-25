@@ -1,0 +1,71 @@
+/*Make logo center*/
+.center_space{
+  text-align: center;
+  flex: 1 1 auto;
+}
+
+/*only for mat-for-field input*/
+/*
+::ng-deep .mat-form-field-flex > .mat-form-field-infix { padding:0px 4px 8px 4px!important; width: 5rem !important;}
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-label { margin-top:-30px; }
+*/
+
+
+mat-toolbar{
+  background-color: #43A047;
+  color: aliceblue;
+}
+.myTitle{
+  margin: 0 !important;
+}
+.myDesc{
+  margin-bottom: 1rem;
+}
+.haveError{
+  color: red !important;
+}
+.tableError{
+  height: 1rem;
+}
+.table-con{
+  margin: 3rem auto;
+  max-width: 35rem;
+}
+.button-group{
+  text-align: center;
+  margin: 1rem 0;
+}
+.button-group button{
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+mat-card{
+  max-width: 35rem;
+  padding: 1rem 1rem 0rem 1rem;
+  width: auto;
+}
+td:nth-child(1){
+  font-weight: bold;
+}
+td:nth-child(2), td:nth-child(3){
+  width: 40%;
+  text-align: center;
+}
+th:nth-child(2), th:nth-child(3){
+  text-align: center;
+}
+th:nth-child(1){
+  max-width: 12rem;
+  min-width: 5rem;
+}
+tr{
+  height: 3.2rem !important;
+}
+table{
+  table-layout: fixed !important;
+  margin: 0 !important;
+}
+td[edited='false'] {
+  color: #b5b5b5;
+}

@@ -1,0 +1,45 @@
+<form [formGroup]="service.form" class="normal-form">
+  <div class="container">
+
+  <mat-grid-list cols="2" rowHeight="300px">
+    <div class="container">
+      <h1>Create New Material</h1>
+    </div>
+    <mat-grid-tile>
+
+      <div class="contoroles-container">
+        <input type="hidden" formControlName="key">
+        <mat-form-field>
+          <input formControlName="materialID" matInput placeholder="Material ID">
+          <mat-error *ngIf="service.form.controls['materialID'].errors?.required">This field is mandatory!</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input formControlName="materialName" matInput placeholder="Material Name">
+          <mat-error *ngIf="service.form.controls['materialName'].errors?.required">This field is mandatory!</mat-error>
+        </mat-form-field>
+      </div>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+      <div class="contoroles-container">
+        <mat-form-field>
+          <input formControlName="description" matInput placeholder="Description">
+          <mat-error *ngIf="service.form.controls['description'].errors?.required">This field is mandatory!</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input formControlName="pointsPerKg" matInput placeholder="PointsPerKg">
+          <mat-error *ngIf="service.form.controls['pointsPerKg'].errors?.required">This field is mandatory!</mat-error>
+        </mat-form-field>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+
+  <div class="button-row container-fluid text-right">
+    <button class="mr-2" mat-raised-button color="primary" type="submit" [disabled]="service.form.invalid">Save Changes</button>
+    <button mat-dialog-close mat-raised-button type="submit">Cancel</button>
+  </div>
+</div>
+</form>

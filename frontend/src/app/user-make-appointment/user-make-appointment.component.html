@@ -1,0 +1,267 @@
+<user-nav (window:resize)="onResize($event)">
+  <!--title bar with pic-->
+  <div class="page-header" [style.background]="'url(/assets/home-pic/recycler_bla35_169.jpg)'">
+    <div class="container-fluid ">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+              <div class="page-caption">
+                <h1 class="page-title">Make Appointment</h1>
+              </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+
+
+  <main>
+    <div class="container-fluid page-area">
+
+      <!--List of Materials-->
+      <div *ngIf="!viewCollectorMaterial && !viewSubmitAppointment && !viewDone" class="row mt-2 row-material-table">
+
+        <div class="container">
+        <div class="row row-control">
+          <div>
+            <h3 class="font-weight-bold">First Step:</h3>
+            <p class="font-italic"><i class="far fa-hand-point-right"></i> Select the material type of recycling item.</p>
+          </div>
+
+          <div class="spacer"></div>
+          <div class="row row-action">
+            <!--<a mat-button  id="btnEdit1" mode="edit" class="btn-back"> back </a>-->
+          </div>
+        </div>
+       </div>
+
+       <div class="container-fluid mb-5">
+        <mat-card>
+          <mat-card-content>
+            <table class="table table-materials table-hover" >
+              <thead>
+                <th>ID</th>
+                <th>Name</th>
+                <th *ngIf="!mobile">Description</th>
+                <th>Points/Kg</th>
+                <th></th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let mat of materials; let i = index" class="material-row" (click)="selectMaterial(i)">
+                  <td>{{ mat.materialID }}</td>
+                  <td>{{ mat.materialName }}</td>
+                  <td *ngIf="!mobile">{{ mat.description? mat.description : 'N/A' }}</td>
+                  <td>{{ mat.pointsPerKg || mat.pointsPerKg.toString() == '0'? mat.pointsPerKg : 'N/A' }}</td>
+                  <td><mat-icon >navigate_next</mat-icon><!--<span *ngIf="!mobile">Select</span>--></td>
+                </tr>
+
+
+                <!--show loading while waiting data to load from database-->
+                <tr *ngIf="showLoadingBar">
+                  <td>
+                    <div class="container">
+                      <mat-spinner></mat-spinner>
+                      <br>
+                      <span>Loading data.....</span>
+                    </div>
+
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="mat-body-1 text-center pb-3" *ngIf="materials.length <= 0 && !showLoadingBar">
+              No material is available.
+            </p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      </div>
+
+
+       <!--List of Collectors-->
+       <div *ngIf="viewCollectorMaterial && !viewSubmitAppointment && !viewDone" class="row mt-2 row-material-table">
+
+        <div class="container">
+        <div class="row row-control">
+          <div>
+            <h3 class="font-weight-bold">Second Step:</h3>
+            <p class="font-italic"><i class="far fa-hand-point-right"></i> Select a collector to submit materials.</p>
+          </div>
+
+          <div class="spacer"></div>
+          <div class="row row-action">
+            <a mat-button  id="btnEdit1" mode="edit" class="btn-back" (click)="viewCollectorMaterial=false"> Back </a>
+          </div>
+        </div>
+       </div>
+
+       <!--list of collectors-->
+       <div class="container-fluid">
+        <mat-card>
+          <mat-card-content>
+            <table class="table table-materials table-hover" >
+              <thead>
+                <th>Collector's Username</th>
+                <th>Collector's Fullname</th>
+                <th>Collector's Address</th>
+                <!--<th>Material ID</th>-->
+                <!--<th>Material Name</th>-->
+              </thead>
+              <tbody>
+                <tr *ngFor="let collector of collectors; let c = index" class="material-row" (click)="selectCollector(c)">
+                  <td>{{ collector.collectorUsername}}</td>
+                  <td>{{ collector.collectorFullName}}</td>
+                  <td>{{ collector.collectorAddress }}</td>
+                  <!--<td>{{ collector.material }}</td>-->
+                  <!--<td>{{ collector.materialName }}</td>-->
+                  <td><mat-icon >navigate_next</mat-icon><!--<span *ngIf="!mobile">Select</span>--></td>
+                </tr>
+
+
+                <!--show loading while waiting data to load from database-->
+                <tr *ngIf="showLoadingBar">
+                  <td>
+                    <div class="container">
+                      <mat-spinner></mat-spinner>
+                      <br>
+                      <span>Loading data.....</span>
+                    </div>
+
+                  </td>
+                </tr>
+
+
+
+              </tbody>
+            </table>
+            <p class="mat-body-1 text-center pb-3" *ngIf="collectors.length <= 0 && !showLoadingBar">
+              No Collector is available.
+            </p>
+
+          </mat-card-content>
+        </mat-card>
+        </div>
+
+      </div>
+
+      <!--submitAppointmentForm-->
+      <div *ngIf="viewSubmitAppointment && !viewDone" class="row mt-2 mb-5 row-material-table">
+        <div class="container">
+          <div class="row row-control">
+            <div>
+              <h3 class="font-weight-bold">Final Step:</h3>
+              <p class="font-italic"><i class="far fa-hand-point-right"></i> Select a propose date and submit your appointment.</p>
+            </div>
+
+            <div class="spacer"></div>
+            <div class="row row-action">
+              <a mat-button  id="btnEdit1" mode="edit" class="btn-back" (click)="viewSubmitAppointment=false"> Back </a>
+            </div>
+          </div>
+         </div>
+
+         <div class="container-fluid">
+          <mat-card class="p-4">
+            <div class="container">
+            <form (submit)="onSubmitAppointment(appointmentForm)" #appointmentForm="ngForm">
+              <!--<div class="row ">-->
+              <div class="form-group col-lg-6 col-md-12 col-sm-12">
+                <label for="collectorName"><i class="fas fa-user"></i>  Collector's Username : </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="collectorName"
+                  #collectorName ="ngModel"
+                  [ngModel] = "collector.collectorUsername"
+                  readonly
+                  >
+              </div>
+
+              <div class="form-group col-lg-6 col-md-12 col-sm-12">
+                <label for="collectorName"><i class="fas fa-box-open"></i>  Material Type : </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="materialType"
+                  #materialType ="ngModel"
+                  [ngModel] = "material.materialName"
+                  readonly
+                  >
+              </div>
+
+              <div class="form-group col-lg-6 col-md-12 col-sm-12">
+                <label for="collectorAddress"><i class="fas fa-map-marker-alt"></i>  Address : </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="collectorAddress"
+                  #materialType ="ngModel"
+                  [ngModel] = "collector.collectorAddress"
+                  readonly
+                  >
+              </div>
+            <!--</div>-->
+
+            <div class="container">
+              <label class="font-weight-bold">Pick a date for submission: </label>
+              &nbsp;
+              <mat-form-field>
+                <mat-label>Propose Date</mat-label>
+                <input
+                  matInput
+                  name="proposedDate"
+                  [matDatepicker]="picker"
+                  #proposedDate = "ngModel"
+                  [ngModel] = ""
+                  required
+                  >
+                  <mat-error *ngIf="proposedDate.invalid">Please pick a propose date.</mat-error>
+
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+              <small class="text-danger" *ngIf="(!errorDateMsg)">Make sure it is a valid Proposed Date!!</small>
+            </div>
+
+              <div class="container text-right">
+                <button mat-raised-button color="primary" type ="submit">Submit Appointment <span class="material-icons">
+                  event_available
+                  </span></button>
+              </div>
+
+            </form>
+          </div>
+          </mat-card>
+         </div>
+      </div>
+
+      <div *ngIf="viewDone" class="row mt-2 mb-5 row-material-table">
+        <div class="container">
+          <div class="row row-control">
+            <div>
+              <h1 class="display-4"><i class="far fa-check-circle text-success"></i> New Appointment has submitted!</h1>
+            </div>
+          </div>
+         </div>
+
+         <div class="container-fluid">
+          <mat-card class="pt-3 pb-4">
+            <small class="ml-4 mb-2">Select action:</small>
+            <div class="container text-center mt-3">
+              <button (click)="newAppointment()" class="mr-3 col-4" mat-raised-button color="primary" type ="submit">
+                <span>New Appointment</span> &nbsp; <i class="fas fa-plus-circle"></i></button>
+
+                <button [routerLink]="['/record-submission']" class="ml-3 col-4" mat-raised-button color="primary" type ="submit">
+                  <span>View All Appointment</span>  &nbsp;  <i class="fas fa-calendar-check"></i></button>
+            </div>
+          </mat-card>
+         </div>
+
+
+      </div>
+
+
+
+
+    </div>
+  </main>
+</user-nav>
