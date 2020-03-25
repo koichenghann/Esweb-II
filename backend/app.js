@@ -9,10 +9,11 @@ const materialRoutes = require("./routes/material");
 const submissionRoute = require("./routes/submission");
 
 const app = express();
+//"mongodb+srv://admin:pivruc-fipcy5-feqgoX@cluster0-idtz7.mongodb.net/node-angular?retryWrites=true&w=majority"
 
 mongoose
   .connect(
-    "mongodb+srv://admin:pivruc-fipcy5-feqgoX@cluster0-idtz7.mongodb.net/node-angular?retryWrites=true&w=majority"
+    "mongodb+srv://admin:" + process.env.MONGO_ATLAS_PW + "@cluster0-idtz7.mongodb.net/node-angular?retryWrites=true&w=majority"
   )
   .then(() => {
     console.log("Connected to database!");
