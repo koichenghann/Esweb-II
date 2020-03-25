@@ -1,0 +1,111 @@
+.page-header {
+	background-repeat:no-repeat;
+  position: relative;
+  background-size: cover;
+  background-position:50% 30%;
+}
+.page-caption {
+  padding-top: 5rem;
+  padding-bottom: 4rem;
+}
+.page-title { font-size: 3.5em;
+  line-height: 1;
+  color: #ffffff;
+  font-weight: 320;
+  text-align: center;
+}
+.box_shadow{
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
+.btn_color{
+  background-color: teal;
+}
+
+
+
+
+.table-appointment thead tr th{
+  border-top: none !important;
+}
+
+
+
+
+
+
+.spacer {
+  flex:1 1 auto;
+}
+.row-control{
+  width: 100%;
+  margin: auto;
+	margin-left: 0.1rem !important;
+}
+.row-action, .row-table-appointment, .row-form-submission {
+  max-width: 60rem;
+  margin: auto;
+}
+.row-table-appointment, .row-form-submission {
+  margin-top: 4rem!important;
+	margin-bottom: 4rem;
+}
+.card-table-appointment, .card-form-submission {
+  width: 100% !important;
+  max-width: 60rem;
+  padding: 0 !important;
+}
+.card-form-submission {
+	padding: 1.8rem 1.2rem 0.7rem 1.2rem !important;
+}
+
+.input-search{
+  height: 1.5rem !important;
+  margin-left: 0.3rem;
+  margin-right: 0.2rem;
+}
+.input-search:focus{
+  outline: none;
+}
+.row-control label {
+  margin-top: 0.1rem;
+}
+.btn-reset, .btn-edit, .btn-cancel{
+	font-weight: lighter;
+}
+.btn-reset{
+	color: blue;
+	margin-top: 0.1rem;
+}
+.btn-cancel{
+	color: red;
+}
+.btn-edit{
+	color: blue;
+}
+
+
+
+
+
+
+mat-form-field {
+	width: 50%;
+  min-width: 19rem;
+  max-width: 50% !important;
+  padding: 0.4rem 1.2rem;
+}
+mat-select{
+	margin-top: -1rem;
+	margin-bottom: 0!important;
+	height: 0 !important;
+	width: 5rem !important;
+	margin-left: 14rem;
+}
+.pat-search{
+	color: green !important;
+}
+
+
+::ng-deep .mat-select-value-text {
+	display: none;
+}

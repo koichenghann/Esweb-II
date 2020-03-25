@@ -1,0 +1,29 @@
+.spacer {
+  flex:1 1 auto;
+}
+
+
+.page-header {
+	background-repeat:no-repeat;
+  position: relative;
+  background-size: cover;
+  background-position:50% 30%;
+}
+.page-caption {
+  padding-top: 5rem;
+  padding-bottom: 4rem;
+}
+.page-title { font-size: 3.5em;
+  line-height: 1;
+  color: #ffffff;
+  font-weight: 320;
+  text-align: center;
+}
+
+.box_shadow{
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
+.btn_color{
+  background-color: teal;
+}

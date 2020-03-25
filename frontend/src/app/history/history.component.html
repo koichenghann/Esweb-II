@@ -1,0 +1,331 @@
+<user-nav *ngIf="userType!='admin'"(window:resize)="onResize($event)">
+  <!--title bar with pic-->
+  <div class="page-header" [style.background]="'url(/assets/home-pic/recycler_bla35_169.jpg)'">
+    <div class="container-fluid ">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+              <div class="page-caption">
+                <h1 class="page-title">History</h1>
+              </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <main>
+    <div class="container-fluid page-area">
+      <div *ngIf="!viewHistory" class="row mt-2 row-material-table">
+        <div class="row row-control ">
+          <h2>Select Material</h2>
+          <div class="spacer"></div>
+          <div class="row row-action">
+            <!--<a mat-button  id="btnEdit1" mode="edit" class="btn-back"> back </a>-->
+          </div>
+        </div>
+
+        <mat-card>
+          <mat-card-content>
+            <table class="table table-materials table-hover" >
+              <thead>
+                <th>ID</th>
+                <th>Name</th>
+                <th *ngIf="!mobile">Description</th>
+                <th>Points/Kg</th>
+                <th></th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let mat of materials; let i = index" class="material-row" (click)="selectMaterial(i)">
+                  <td>{{ mat.materialID }}</td>
+                  <td>{{ mat.materialName }}</td>
+                  <td *ngIf="!mobile">{{ mat.description? mat.description : 'N/A' }}</td>
+                  <td>{{ mat.pointsPerKg || mat.pointsPerKg.toString() == '0'? mat.pointsPerKg : 'N/A' }}</td>
+                  <td><mat-icon >navigate_next</mat-icon><!--<span *ngIf="!mobile">Select</span>--></td>
+                </tr>
+              </tbody>
+            </table>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+
+
+      <div  *ngIf="viewHistory" class="row mt-2 row-submissions-table">
+        <div class="row row-control ">
+          <h2>Submission of {{ material? material.materialName:'(material not selected)' }}</h2>
+          <div class="spacer"></div>
+          <div class="row row-action">
+            <a mat-button  id="btnEdit1" mode="edit" class="btn-back" (click)="viewHistory=false"> back </a>
+          </div>
+        </div>
+
+        <mat-card class="card-my mb-5">
+          <mat-card-content >
+
+            <div *ngIf="!histories || histories.length==0" class="text-center p-3">
+              No Submission of this material yet.
+            </div>
+
+            <!--<div class="emptyHolder text-center" *ngIf="!histories || histories.length==0">
+              No History
+            </div>-->
+            <table class="table table-submissions " *ngIf="histories&&histories.length>0">
+              <thead>
+                  <tr>
+                    <th (click)="sortHistoryByID()">ID<mat-icon>{{ !sortedBySubmissionID? 'arrow_drop_down':'arrow_drop_up'}}</mat-icon></th>
+
+                    <th *ngIf="!mobile">collector</th>
+                    <th *ngIf="!mobile">recycler</th>
+                    <th *ngIf="!mobile">weight</th>
+                    <th *ngIf="!mobile">points</th>
+
+                    <th (click)="sortHistoryByActualDate()">actualDate<mat-icon>{{ sortedByActualDate? 'arrow_drop_down':'arrow_drop_up'}}</mat-icon></th>
+                    <th (click)="sortHistoryByStatus()">status<mat-icon>{{ sortedByStatus? 'arrow_drop_down':'arrow_drop_up'}}</mat-icon></th>
+                    <th></th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let history of histories; let i = index"  [attr.hide]="history.hide" [attr.expanded]="history.expanded">
+                    <td *ngIf="history.hide==undefined" (click)="expand(i)">{{ histories[i].submissionID }}</td>
+
+                    <td *ngIf="history.hide==undefined && !mobile" (click)="expand(i)" class="extra-col">{{ history.collectorUsername }}</td>
+                    <td *ngIf="history.hide==undefined && !mobile" (click)="expand(i)" class="extra-col">{{ history.recyclerUsername }}</td>
+                    <td *ngIf="history.hide==undefined && !mobile" (click)="expand(i)" class="extra-col">{{ history.weightInKg || history.weightInKg == '0'? history.weightInKg : 'N/A' }}</td>
+                    <td *ngIf="history.hide==undefined && !mobile" (click)="expand(i)" class="extra-col">{{ history.pointsAwarded || history.pointsAwarded == '0'? history.pointsAwarded : 'N/A' }}</td>
+
+                    <td *ngIf="history.hide==undefined" (click)="expand(i)">{{ history.actualDate? history.actualDate:'N/A' }}</td>
+                    <td *ngIf="history.hide==undefined" (click)="expand(i)">{{ history.status }}</td>
+                    <td *ngIf="history.hide==undefined" (click)="expand(i)"> <mat-icon>{{ history.expanded? 'keyboard_arrow_up':'keyboard_arrow_down' }}</mat-icon> </td>
+                    <!-- <mat-icon>arrow_drop_down</mat-icon> -->
+                    <td *ngIf="history.hide!=undefined" colspan="8" class="expandedCell" [attr.closed]="history.hide">
+                      <div class="container-fluid">
+                        <div class="row">
+                          <div class="col-xl-2"></div>
+                          <div class="col-12  col-xl-5">
+                            <pre><p>submissionID : {{ history.submissionID }}</p></pre>
+                            <pre><p>Collector    : {{ history.collectorFullName }}</p></pre>
+                            <pre><p>Recycler     : {{ history.recyclerFullName }}</p></pre>
+                            <pre><p>proposedDate : {{ history.proposedDate }}</p></pre>
+                            <pre><p>actualDate   : {{ history.actualDate? history.actualDate:'N/A'}}   </p></pre>
+                          </div>
+                          <div class="col-12  col-xl-3">
+                            <pre><p>material     : {{ history.materialName }}</p></pre>
+                            <pre><p>weight       : {{ history.weightInKg || history.weightInKg == '0'? history.weightInKg:'N/A'}} </p></pre>
+                            <pre><p>points       : {{ history.pointsAwarded || history.pointsAwarded == '0'? history.pointsAwarded:'N/A'}}  </p></pre>
+                            <pre><p>status       : {{ history.status }}</p></pre>
+                          </div>
+                          <div class="col-xl-2"></div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+              </tbody>
+            </table>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </main>
+</user-nav>
+
+
+
+
+
+<dashboard-sidenav *ngIf="userType=='admin'">
+  <main>
+    <div class="container-fluid page-area">
+      <div *ngIf="!viewHistory" class="row mt-2 row-material-table admin-row">
+        <div class="row row-control ">
+          <h2>Select Material</h2>
+          <div class="spacer"></div>
+          <div class="row row-action">
+            <!--<a mat-button  id="btnEdit1" mode="edit" class="btn-back"> back </a>-->
+          </div>
+        </div>
+
+        <mat-card>
+          <mat-card-content>
+            <table class="table table-materials table-hover" >
+              <thead>
+                <th>ID</th>
+                <th>Name</th>
+                <th *ngIf="!mobile">Description</th>
+                <th>Points/Kg</th>
+                <th></th>
+              </thead>
+              <tbody>
+                <tr *ngFor="let mat of materials; let i = index" class="material-row" (click)="selectMaterial(i)">
+                  <td>{{ mat.materialID }}</td>
+                  <td>{{ mat.materialName }}</td>
+                  <td *ngIf="!mobile">{{ mat.description? mat.description : 'N/A' }}</td>
+                  <td>{{ mat.pointsPerKg || mat.pointsPerKg.toString() == '0'? mat.pointsPerKg : 'N/A' }}</td>
+                  <td><mat-icon >navigate_next</mat-icon><!--<span *ngIf="!mobile">Select</span>--></td>
+                </tr>
+              </tbody>
+            </table>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+
+
+      <div  *ngIf="viewHistory" class="row mt-2 row-submissions-table admin-row">
+        <div class="row row-control ">
+          <h2>Submission of {{ material? material.materialName:'(material not selected)' }}</h2>
+          <div class="spacer"></div>
+          <div class="row row-action">
+            <a mat-button  id="btnEdit1" mode="edit" class="btn-back" (click)="viewHistory=false"> back </a>
+          </div>
+        </div>
+
+        <mat-card class="card-my mb-5">
+          <mat-card-content >
+
+            <div *ngIf="!histories || histories.length==0" class="text-center p-3">
+              No Submission of this material yet.
+            </div>
+
+            <!--<div class="emptyHolder text-center" *ngIf="!histories || histories.length==0">
+              No History
+            </div>-->
+            <table class="table table-submissions " *ngIf="histories&&histories.length>0">
+              <thead>
+                  <tr>
+                    <th (click)="sortHistoryByID()">ID<mat-icon>{{ !sortedBySubmissionID? 'arrow_drop_down':'arrow_drop_up'}}</mat-icon></th>
+
+                    <th *ngIf="!mobile">collector</th>
+                    <th *ngIf="!mobile">recycler</th>
+                    <th *ngIf="!mobile">weight</th>
+                    <th *ngIf="!mobile">points</th>
+
+                    <th (click)="sortHistoryByActualDate()">actualDate<mat-icon>{{ sortedByActualDate? 'arrow_drop_down':'arrow_drop_up'}}</mat-icon></th>
+                    <th (click)="sortHistoryByStatus()">status<mat-icon>{{ sortedByStatus? 'arrow_drop_down':'arrow_drop_up'}}</mat-icon></th>
+                    <th></th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let history of histories; let i = index"  [attr.hide]="history.hide" [attr.expanded]="history.expanded">
+                    <td *ngIf="history.hide==undefined" (click)="expand(i)">{{ histories[i].submissionID }}</td>
+
+                    <td *ngIf="history.hide==undefined && !mobile" class="extra-col">{{ history.collectorUsername }}</td>
+                    <td *ngIf="history.hide==undefined && !mobile" class="extra-col">{{ history.recyclerUsername }}</td>
+                    <td *ngIf="history.hide==undefined && !mobile" class="extra-col">{{ history.weightInKg || history.weightInKg == '0'? history.weightInKg : 'N/A' }}</td>
+                    <td *ngIf="history.hide==undefined && !mobile" class="extra-col">{{ history.pointsAwarded || history.pointsAwarded == '0'? history.pointsAwarded : 'N/A' }}</td>
+
+                    <td *ngIf="history.hide==undefined" (click)="expand(i)">{{ history.actualDate? history.actualDate:'N/A' }}</td>
+                    <td *ngIf="history.hide==undefined" (click)="expand(i)">{{ history.status }}</td>
+                    <td *ngIf="history.hide==undefined" (click)="expand(i)"> <mat-icon>{{ history.expanded? 'keyboard_arrow_up':'keyboard_arrow_down' }}</mat-icon> </td>
+                    <!-- <mat-icon>arrow_drop_down</mat-icon> -->
+                    <td *ngIf="history.hide!=undefined" colspan="8" class="expandedCell" [attr.closed]="history.hide">
+                      <div class="container-fluid">
+                        <div class="row">
+                          <div class="col-xl-2"></div>
+                          <div class="col-12  col-xl-5">
+                            <pre><p>submissionID : {{ history.submissionID }}</p></pre>
+                            <pre><p>Collector    : {{ history.collectorFullName }}</p></pre>
+                            <pre><p>Recycler     : {{ history.recyclerFullName }}</p></pre>
+                            <pre><p>proposedDate : {{ history.proposedDate }}</p></pre>
+                            <pre><p>actualDate   : {{ history.actualDate? history.actualDate:'N/A'}}   </p></pre>
+                          </div>
+                          <div class="col-12  col-xl-3">
+                            <pre><p>material     : {{ history.materialName }}</p></pre>
+                            <pre><p>weight       : {{ history.weightInKg || history.weightInKg == '0'? history.weightInKg:'N/A'}} </p></pre>
+                            <pre><p>points       : {{ history.pointsAwarded || history.pointsAwarded == '0'? history.pointsAwarded:'N/A'}}  </p></pre>
+                            <pre><p>status       : {{ history.status }}</p></pre>
+                          </div>
+                          <div class="col-xl-2"></div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+              </tbody>
+            </table>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </main>
+</dashboard-sidenav>
+
+
+<!--
+<mat-card>
+  <mat-card-content>
+    <table class="table table-submissions">
+      <thead>
+        <div class="">
+          <tr>
+            <th>ID</th>
+            <th>actualDate</th>
+            <th>status</th>
+            <th><></th>
+          </tr>
+        </div>
+      </thead>
+      <tbody>
+        <div *ngFor="let history of histories">
+          <tr (click)="history.hide = !history.hide">
+            <td>{{ history.submissionID }}</td>
+            <td>{{ history.actualDate }}</td>
+            <td>{{ history.status }}</td>
+            <td><></td>
+          </tr>
+          <tr *ngIf="history.hide == false" class="expandedCell">
+            <td colspan="4">
+              <pre><p>submissionID : {{ history.submissionID }}</p></pre>
+              <pre><p>Collector    : {{ history.collectorFullName }}</p></pre>
+              <pre><p>Recycler     : {{ history.recyclerFullName }}</p></pre>
+              <pre><p>proposedDate : {{ history.proposedDate }}</p></pre>
+              <pre><p>actualDate   : {{ history.actualDate }}</p></pre>
+              <pre><p>material     : {{ history.materialName }}</p></pre>
+              <pre><p>weight       : {{ history.weightInKg }}</p></pre>
+              <pre><p>points       : {{ history.pointsAwarded }}</p></pre>
+              <pre><p>status       : {{ history.status }}</p></pre>
+            </td>
+          </tr>
+        </div>
+      </tbody>
+    </table>
+  </mat-card-content>
+</mat-card>
+-->
+
+
+
+<!--A list of submissions with the Collector and Recycler names,status, weight in Kg
+and points awarded for the submission are shown for each submission. The total
+weight and total points for the material is also shown.
+
+reference:
+collector fullname
+recycler fullname
+materialName
+
+SummaryView:
+  collector */
+  recycler */
+  status *
+  weightInKg *
+  points *
+
+
+
+Better Summary View:
+  submissionID
+  actualDate
+  status
+
+
+
+
+Full Detail:
+  submissionID
+  Collector.fullName
+  Recycler.fullName
+  proposedDate
+  actualDate
+  materialName
+  weightInKg
+  pointsAwarded
+  status
+-->

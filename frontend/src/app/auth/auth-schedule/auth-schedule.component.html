@@ -1,0 +1,117 @@
+<mat-toolbar>
+  <span class="center_space"><i class="fas fa-recycle"></i> ESWEB</span>
+</mat-toolbar>
+
+
+<div class="container-fluid">
+  <div class="table-con">
+    <h1 class="text-center myTitle">Collector Schedule</h1>
+    <div class="text-center myDesc">please select time</div>
+    <mat-card>
+      <mat-card-content>
+        <table #timeTable class="table">
+
+            <tr>
+              <th></th>
+              <th>start time</th>
+              <th>end time</th>
+            </tr>
+
+          <tbody>
+            <tr *ngFor="let day of week">
+              <td class="myCol">{{ day.day }}</td>
+              <td class="myCol" #col2 (click)="onClick(col2)" editing="false" edited="false">{{ day.startTime }}</td>
+              <td class="myCol" #col3 (click)="onClick(col3)" editing="false" edited="false">{{ day.endTime }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </mat-card-content>
+    </mat-card>
+    <div class="haveError tableError text-center">{{ errorMessage }}</div>
+    <div class="button-group">
+      <button mat-raised-button color="primary" (click)="confirmCreation()">PROCEED</button>
+      <a href="" class=""  routerLink="/auth/signup">back</a>
+    </div>
+  </div>
+  {{ tableLoaded(timeTable) }}
+</div>
+
+
+
+<!--
+
+<mat-card-actions>
+  <button mat-button>back</button>
+  <button mat-button (click)="confirmCreation()">PROCEED</button>
+</mat-card-actions>
+
+
+<mat-toolbar>
+  <span class="center_space"><i class="fas fa-recycle"></i> ESWEB</span>
+</mat-toolbar>
+
+
+<table id="timeTable">
+  <thead>
+    <tr>
+      <th>day</th>
+      <th>start time</th>
+      <th>end time</th>
+      <th>action</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let day of week">
+      <td class="myCol">{{ day.day }}</td>
+      <td class="myCol">{{ day.startTime }}</td>
+      <td class="myCol">{{ day.endTime }}</td>
+      <td class="myCol" #self (click)="onClick(self)">edit</td>
+    </tr>
+  </tbody>
+
+</table>
+
+
+  -->
+
+
+
+
+
+<!--
+/*
+onClick(selectedCell: any){
+  console.log(selectedCell.parentElement.getElementsByClassName("myCol")[0].innerHTML);
+  let table     = selectedCell.parentElement;
+  let col1      = table.getElementsByClassName("myCol")[0];
+  let col2      = table.getElementsByClassName("myCol")[1];
+  let col3      = table.getElementsByClassName("myCol")[2];
+  let col4      = table.getElementsByClassName("myCol")[3];
+  let day       = col1.innerHTML;
+  let startTime = col2.innerHTML;
+  let endTime   = col3.innerHTML;
+  let action    = col4.innerHTML;
+
+  if(action == 'save') {
+    //startTime   = col2.getElementsByClassName('timePicker')[0].value;
+    //endTime     = col3.getElementsByClassName('timePicker')[0].value;
+    col4.innerHTML = 'edit';
+    col2.innerHTML = col2.getElementsByClassName('timePicker')[0].value;
+    col3.innerHTML = col3.getElementsByClassName('timePicker')[0].value;
+
+  }
+  else {
+    startTime      = col2.innerHTML;
+    endTime        = col3.innerHTML;
+
+
+    col2.innerHTML = this.timePicker;
+    col3.innerHTML = this.timePicker;
+    col2.getElementsByClassName('timePicker')[0].value = startTime;
+    col3.getElementsByClassName('timePicker')[0].value = endTime;
+    col4.innerHTML = 'save';
+  }
+}*/
+
+  -->

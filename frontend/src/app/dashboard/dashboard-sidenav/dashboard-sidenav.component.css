@@ -1,0 +1,78 @@
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 16rem;
+  box-shadow: 2px 0 4px rgba(0,0,.24);
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+
+.mat-toolbar.mat-primary {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.mat-toolbar{
+  background-color: #f7f7f7;
+}
+
+.spacer {
+  flex:1 1 auto;
+  text-align: center;
+}
+
+.account_icon{
+  font-size: 125%;
+}
+
+
+
+.sidenav_title{
+  font-size: large;
+}
+
+@media (min-width:768px) {
+  .sidenav {
+    background-color: #424242;
+  }
+
+  .sidenav_item{
+    color: white;
+  }
+  .toolbar_title{
+    color: white;
+  }
+  .toolbar_2{
+    display:none;
+  }
+
+
+}
+
+@media (max-width:768px){
+  .mat-button{
+    display:none;
+  }
+  .span-title{
+    display:none;
+  }
+  .mat-toolbar{
+    background-color: #43A047;
+  }
+
+
+
+}
+
+
+.active-link{
+  background-color: #333333;
+}
+.active-link:hover{
+  background-color: #333333;
+}

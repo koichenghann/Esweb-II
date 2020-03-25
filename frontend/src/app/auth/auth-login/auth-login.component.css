@@ -1,0 +1,47 @@
+mat-form-field,
+textarea {
+  width: 100%;
+}
+
+mat-spinner {
+  margin: auto;
+}
+
+mat-card {
+  margin: 4rem auto;
+  padding: 1.4rem 1.4rem;
+  max-width: 20rem;
+}
+
+mat-form-field {
+  margin: 0 auto;
+}
+
+button {
+  width: 100%;
+}
+
+.form-title {
+  font-size: 25px;
+  margin: 5rem 0 0rem 0;
+}
+.option {
+  width: 100%;
+  text-align: center;
+  margin: 15px auto;
+  color: gray;
+}
+/*Button Green Color*/
+.btn_color{
+  background-color: #00695C;
+}
+/*Make logo center*/
+.center_space{
+  text-align: center;
+  flex: 1 1 auto;
+}
+
+mat-toolbar{
+  background-color: #00695C;
+  color: aliceblue;
+}
