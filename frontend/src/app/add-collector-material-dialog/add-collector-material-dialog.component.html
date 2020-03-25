@@ -1,0 +1,38 @@
+<div  mat-dialog-content class="bg-dark title">
+  <h2 class="text-center">Select Material</h2>
+
+</div>
+<!--<mat-dialog-content>
+  Hi {{ data.name }} you will be logged out
+
+</mat-dialog-content>-->
+
+<div mat-dialog-content class="content">
+
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>name</th>
+        <th>points<br>/kg</th>
+        <th>check</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr #row *ngFor="let material of data">
+
+        <td>{{ material.materialID }}</td>
+        <td>{{ material.materialName }}</td>
+        <td>{{ material.pointsPerKg }}</td>
+        <!--<td><input type="checkbox" name="materialCheck" value="" (click)="onClick(row, material._id)"></td>-->
+        <td><mat-checkbox [(ngModel)]="material.selected"></mat-checkbox></td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+<div mat-dialog-actions align="end" >
+  <button mat-button mat-dialog-close="false" class="btn-cancel">Cancel</button>
+  <button mat-button [(mat-dialog-close)]="data" class="btn-save">Save</button>
+</div>

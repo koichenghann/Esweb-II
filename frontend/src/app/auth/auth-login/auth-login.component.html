@@ -1,0 +1,54 @@
+<main>
+
+
+<mat-toolbar>
+    <span class="center_space"><i class="fas fa-recycle"></i> ESWEB</span>
+  </mat-toolbar>
+<div class="container-fluid">
+
+  <div class="form-title text-center">
+    Login
+  </div>
+<mat-card class="bg-light">
+  <mat-spinner *ngIf=""></mat-spinner>
+
+  <form [formGroup]="form" (submit)="onLogin()"  *ngIf="true">
+
+    <mat-form-field appearance="outline">
+      <mat-label>Username</mat-label>
+      <input
+        name="username"
+        matInput
+        type="text"
+        placeholder="Username"
+        formControlName="username"
+        (ngModelChange)="validateInput('username')"
+        required
+        >
+        <mat-error *ngIf="form.get('username').invalid">{{ usernameError }}</mat-error>
+    </mat-form-field>
+
+
+
+    <mat-form-field appearance="outline">
+      <mat-label>Password</mat-label>
+      <input
+        name="password"
+        matInput
+        [type]="hide ? 'password' : 'text'"
+        placeholder="Password"
+        formControlName="password"
+        (ngModelChange)="validateInput('password')"
+        required
+        >
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="form.get('password').invalid">{{ passwordError }}</mat-error>
+    </mat-form-field>
+    <button class="btn_color" mat-raised-button color="accent" type="submit" >Login</button>
+  </form>
+  <div class="option">Don't have an account? <a routerLink="/auth/signup">Sign Up here</a></div>
+</mat-card>
+</div>
+</main>

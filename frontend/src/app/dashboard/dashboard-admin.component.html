@@ -1,0 +1,77 @@
+<dashboard-sidenav>
+<div class="container-fluid bg-light">
+
+
+
+
+  <div class="container-fluid mt-2">
+    <h1 class="mat-h1, mat-title">Dashboard</h1>
+  </div>
+  <div class="container-fluid">
+    <!--first row-->
+  <div class="row">
+
+    <div class="container-fluid col-lg-12 col-md-12 col-sm-12">
+
+      <mat-card style="min-height: 100%;">
+        <mat-card-header>
+          <mat-card-title>Welcome Back!</mat-card-title>
+        <mat-card-subtitle>{{ userName }}</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+
+        </mat-card-content>
+      </mat-card>
+
+
+    </div>
+
+
+
+  </div>
+</div>
+
+
+
+
+  <div class="container-fluid col-lg-12 col-md-12 col-sm-12 mt-2">
+    <!--Second row-->
+
+    <div class="row">
+      <div class="container-fluid col-lg-4 col-md-4 col-sm-12 mt-2">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Manage Material</mat-card-title>
+            <mat-card-subtitle>Add, Update and Delete the detail of materials.</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+
+              <div class="container-fluid text-right">
+                <button routerLink="/admin/manage-material" routerLinkActive="active" class="btn_color" mat-fab><mat-icon>edit</mat-icon></button>
+              </div>
+
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <div class="container-fluid col-lg-8 col-md-8 col-sm-12 mt-2">
+        <mat-card style="min-height: 100%;">
+          <mat-card-header>
+            <mat-card-title>Submmision History</mat-card-title>
+            <mat-card-subtitle>The entire recycle submission recorded arcoss the system.</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <br>
+            <div class="container-fluid text-center col-8">
+              <button routerLink="/history" class="btn_color" mat-raised-button color="primary" style="min-width: 100%;">View All Submmissions</button>
+          </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+
+    </div>
+</div>
+</div>
+</dashboard-sidenav>

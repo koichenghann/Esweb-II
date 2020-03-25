@@ -1,0 +1,147 @@
+
+<mat-toolbar>
+  <span class="center_space"><i class="fas fa-recycle"></i> ESWEB</span>
+</mat-toolbar>
+
+<div class="container-fluid" >
+  <div class="form-title text-center">Sign Up</div>
+
+<mat-tab-group (selectedTabChange)="tabChanged($event)" [(selectedIndex)]="selectedIndex">
+
+  <mat-tab label="Recycler">
+
+
+    <mat-card>
+      <mat-card-content>
+
+      <form [formGroup]="form_recycler" (submit)="onRecyclerSignup()"  *ngIf="true">
+        <mat-form-field appearance="outline">
+          <mat-label>Username</mat-label>
+          <input
+            name="username"
+            matInput
+            type="text"
+            formControlName="username"
+            (ngModelChange)="validateRecyclerInput('recycler_username')"
+            required
+            >
+            <mat-error *ngIf="form_recycler.get('username').invalid">{{ recycler_usernameError  }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input
+            name="password"
+            matInput
+
+            [type]="hide ? 'password' : 'text'"
+            formControlName="password"
+            (ngModelChange)="validateRecyclerInput('recycler_password')"
+            required
+            >
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="form_recycler.get('password').invalid">{{ recycler_passwordError }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Full Name</mat-label>
+          <input
+            name="fullName"
+            matInput
+            type="text"
+
+            formControlName="fullName"
+            (ngModelChange)="validateRecyclerInput('recycler_fullName')"
+            required
+            >
+            <mat-error *ngIf="form_recycler.get('fullName').invalid">{{ recycler_fullNameError }}</mat-error>
+        </mat-form-field>
+
+
+
+
+        <button class="btn_color" mat-raised-button color="primary" type="submit" >Sign Up</button>
+      </form>
+      <div class="option">Alraedy have an account? <a routerLink="/auth/login">Login here</a></div>
+    </mat-card-content>
+    </mat-card>
+    <div class="spacer">
+
+    </div>
+  </mat-tab>
+
+
+
+  <mat-tab label="Collector">
+    <mat-card>
+      <form [formGroup]="form_collector" (submit)="onCollectorSignup()"  *ngIf="true">
+        <mat-form-field appearance="outline">
+          <mat-label>Username</mat-label>
+          <input
+            name="username"
+            matInput
+            type="text"
+            formControlName="username"
+            (ngModelChange)="validateCollectorInput('collector_username')"
+            required
+            >
+            <mat-error *ngIf="form_collector.get('username').invalid">{{ collector_usernameError  }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input
+            name="password"
+            matInput
+            
+            formControlName="password"
+            (ngModelChange)="validateCollectorInput('collector_password')"
+            required
+            [type]="hide ? 'password' : 'text'"
+            >
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            <mat-error *ngIf="form_collector.get('password').invalid">{{ collector_passwordError }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Full Name</mat-label>
+          <input
+            name="fullName"
+            matInput
+            type="text"
+            formControlName="fullName"
+            (ngModelChange)="validateCollectorInput('collector_fullName')"
+            required
+            >
+            <mat-error *ngIf="form_collector.get('fullName').invalid">{{ collector_fullNameError }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Address</mat-label>
+          <textarea rows="1" cols="80"
+            name="address"
+            matInput
+            type="text"
+            formControlName="address"
+            (ngModelChange)="validateCollectorInput('collector_address')"
+            required
+            ></textarea>
+            <mat-error *ngIf="form_collector.get('address').invalid">{{ collector_addressError }}</mat-error>
+        </mat-form-field>
+
+
+
+        <button mat-raised-button color="primary" type="submit" >Sign Up</button>
+      </form>
+      <div class="option">Alraedy have an account? <a routerLink="/auth/login">Login here</a></div>
+    </mat-card>
+    <div class="spacer2">
+
+    </div>
+  </mat-tab>
+</mat-tab-group>
+</div>

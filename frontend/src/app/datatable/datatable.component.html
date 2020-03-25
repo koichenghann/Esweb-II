@@ -1,0 +1,79 @@
+
+<div class="container-fluid">
+  <h1 class="text-center m-4">Manage Material</h1>
+  <button
+    class="m-2"
+    (click)="onCreate()"
+    mat-raised-button>
+    <mat-icon>add</mat-icon>
+    <span> Create New Material</span>
+  </button>
+
+
+<mat-table  class="mat-elevation-z8">
+  <!-- Position Column -->
+  <ng-container matColumnDef="position">
+    <mat-header-cell *matHeaderCellDef > No. </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+  </ng-container>
+
+  <!-- materialID Column -->
+  <ng-container matColumnDef="materialID">
+    <mat-header-cell *matHeaderCellDef > materialID </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.materialID}} </mat-cell>
+  </ng-container>
+
+  <!-- materialName Column -->
+  <ng-container matColumnDef="materialName">
+    <mat-header-cell *matHeaderCellDef > materialName </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.materialName}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="description">
+    <mat-header-cell *matHeaderCellDef > description </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+  </ng-container>
+
+  <!-- pointsPerKg Column -->
+  <ng-container matColumnDef="pointsPerKg">
+    <mat-header-cell *matHeaderCellDef > pointsPerKg </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.pointsPerKg}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <button mat-icon-button color="primary" #row1 (click)="onEdit(row1)"><mat-icon>edit</mat-icon></button>
+      <button mat-icon-button color="warn"><mat-icon>delete_outline</mat-icon></button>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="loading">
+    <mat-footer-cell *matFooterCellDef colspan="6">
+      Loading data...
+    </mat-footer-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="noData">
+    <mat-footer-cell *matFooterCellDef colspan="6">
+      <div class="container text-center">
+        No Data!
+      </div>
+    </mat-footer-cell>
+  </ng-container>
+
+
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  <!--<mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':Material!=null}"></mat-footer-row>-->
+  <!--<mat-footer-row *matFooterRowDef="['noData']" ></mat-footer-row>-->
+</mat-table>
+</div>
+
+
+<!--
+<div class="container-fluid">
+  <create-material-form></create-material-form>
+</div>
+-->

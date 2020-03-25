@@ -1,0 +1,74 @@
+button:focus, button:active:focus, button.active:focus {
+outline: none !important;
+outline-style: none !important;
+}
+
+.mat-dialog-title{
+  margin: 0 0 1rem 0;
+
+}
+.mat-dialog-content{
+  border-top: solid 1px #dbdbdb;
+}
+.mat-dialog-actions{
+  padding-top: 0;
+}
+.title{
+  margin-top: -2rem !important;
+  height: 4rem;
+  color: white;
+}
+h2{
+  margin-top: 1.2rem;
+}
+
+
+.table {
+  width: auto;
+  margin-bottom: 0;
+}
+.table > thead > tr > th:nth-child(3){
+  min-width: 3rem !important;
+  overflow: auto;
+}
+.table > thead > tr > th{
+  border-top: none;
+}
+
+th{
+  text-align: left;
+}
+td, th {
+  padding: 0.6rem 0.3rem  0.6rem 0.3rem  !important;
+}
+th {
+  /*padding-top: 0.2rem !important;*/
+  padding-bottom: 0.2rem !important;
+}
+
+th:nth-child(1){
+  width: 7rem;
+}
+th:nth-child(2){
+  width: 7rem;
+}
+th:nth-child(3){
+  width: 5rem;
+}
+th:nth-child(4){
+  width: 3rem;
+}
+tr > td:nth-child(4){
+  text-align: center;
+}
+
+
+.btn-save, .btn-cancel{
+  /*font-weight: lighter;*/
+}
+.btn-save{
+  color: blue;
+}
+.btn-cancel{
+  color: red;
+}

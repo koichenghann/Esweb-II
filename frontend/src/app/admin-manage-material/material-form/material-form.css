@@ -1,0 +1,19 @@
+mat-form-field{
+  width: 100%;
+}
+
+textarea{
+  width: 100%;
+}
+
+.materialID_col{
+  width: 1.5rem;
+}
+.materialName_col{
+  width: 1.5rem;
+}
+
+.pointsPerKg_col{
+  width: 1rem;
+}
+

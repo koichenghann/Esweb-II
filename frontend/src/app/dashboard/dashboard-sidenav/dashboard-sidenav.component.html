@@ -1,0 +1,70 @@
+<mat-sidenav-container class="sidenav-container" >
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+
+    fixedInViewport="false"
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false">
+
+    <mat-toolbar class="toolbar_title" > ESWEB | Admin </mat-toolbar>
+
+    <mat-nav-list>
+      <a routerLink="/dashboard-admin" routerLinkActive="active-link" class="sidenav_item" mat-list-item href="#"><mat-icon>home</mat-icon><span>&nbsp; Dashboard</span></a>
+      <a routerLink="/history" routerLinkActive="active-link" class="sidenav_item" mat-list-item href="#"><mat-icon>history</mat-icon><span>&nbsp; Submission History </span></a>
+      <a routerLink="/admin/manage-material" routerLinkActive="active-link" class="sidenav_item" mat-list-item href="#"><mat-icon>edit</mat-icon><span>&nbsp; Manage Material </span></a>
+      <a (click)='logout()' routerLink="/home" routerLinkActive="active-link" class="sidenav_item" mat-list-item href="#"><mat-icon>exit_to_app</mat-icon><span> &nbsp;  Logout</span></a>
+
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <div class="toolbar_2">
+    <mat-toolbar style="color:white">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+
+      <!--<span class="span-title"> ESWeb </span>-->
+      <!--<i class="material-icons">account_circle</i>-->
+      <span class="spacer">
+        <i class="fas fa-recycle"></i>
+        <span> ESWEB</span>
+      </span>
+
+    <div class="account_menu">
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="account menu button">
+          <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>account_circle</mat-icon>
+          <span>Admin</span>
+        </button>
+
+       <button mat-menu-item>
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Logout</span>
+      </button>
+    </mat-menu>
+   </div>
+
+      <!--
+      <a class="text-white" href="#" >Login</a>
+      <a class="text-white" href="#">Sign up</a>
+      -->
+
+      <!--<button mat-button class="home-button" > Home </button>-->
+
+
+    </mat-toolbar>
+  </div>
+    <!-- Add Content Here -->
+    <ng-content></ng-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>
