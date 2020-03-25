@@ -6,7 +6,10 @@ export const environment = {
   production: false,
   apiUrl: 'http://localhost:3000/api'
 };
-
+//(fast) (second server) http://silk-route-esweb.apps.us-east-2.starter.openshift-online.com/api/
+//(fast)  (fitst sever) http://route1-esweb.apps.us-west-1.starter.openshift-online.com/api
+//(slow) (firtst server) http://silkroute-esweb.apps.us-west-1.starter.openshift-online.com/api
+//'http://localhost:3000/api'
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
