@@ -1,0 +1,111 @@
+<user-nav>
+  <!--title bar with pic-->
+  <div class="page-header" [style.background]="'url(/assets/home-pic/recycler_bla35_169.jpg)'">
+    <div class="container-fluid ">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+              <div class="page-caption">
+                <h1 class="page-title">Dashboard</h1>
+              </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <main>
+
+    <div class="container-fluid">
+      <div class="container-fluid mt-2">
+
+      <!--first row-->
+      <div class="row">
+
+        <div class="container-fluid col-lg-12 col-md-12 col-sm-12 mt-2">
+
+          <mat-card style="min-height: 100%;">
+            <mat-card-header>
+              <mat-card-title>Welcome Back!</mat-card-title>
+            <mat-card-subtitle>{{ username }}</mat-card-subtitle>
+            </mat-card-header>
+
+            <mat-card-content>
+              <div class="container-fluid text-right">
+                <button routerLink="/manage-profile" mat-raised-button color="primary">Manage User Profile</button>
+            </div>
+          </mat-card-content>
+          </mat-card>
+
+
+        </div>
+
+
+
+      </div>
+    </div>
+
+      <!--second row-->
+      <div class="container-fluid col-lg-12 col-md-12 col-sm-12 mt-2">
+        <!--Second row-->
+
+        <div class="row">
+          <div class="container-fluid col-lg-4 col-md-4 col-sm-12 mt-2">
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>Collection:</mat-card-title>
+                <mat-card-subtitle>Let's show the world what you had collected.</mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+
+
+
+                  <div class="container-fluid text-right">
+
+
+                    <button routerLink="/add-submission" class="btn_color" mat-fab><i class="fas fa-plus"></i></button>
+
+                  </div>
+
+              </mat-card-content>
+            </mat-card>
+          </div>
+
+          <div class="container-fluid col-lg-4 col-md-4 col-sm-12 mt-2">
+            <mat-card style="min-height: 100%;">
+              <mat-card-header>
+                <mat-card-title>Submmision:</mat-card-title>
+                <mat-card-subtitle>Review your contribution to our mother nature.</mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                <br>
+                <div class="container-fluid text-center col-8">
+                  <button routerLink="/history" class="btn_color" mat-raised-button color="accent" style="min-width: 100%;">View All Submmission</button>
+              </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+
+          <div class="container-fluid col-lg-4 col-md-4 col-sm-12 mt-2">
+            <mat-card style="min-height: 100%;">
+              <mat-card-header>
+                <mat-card-title>EcoPoints:</mat-card-title>
+                <mat-card-subtitle>{{ pointToLevel }} {{ ecoPoints }}</mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content>
+                <br>
+                <div class="container-fluid text-center col-8">
+                  <button class="btn_color" mat-stroked-button color="primary" style="min-width: 100%;">Redeem Rewards</button>
+              </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+
+        </div>
+
+
+
+
+      </div>
+
+    </div>
+  </main>
+</user-nav>

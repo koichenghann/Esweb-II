@@ -1,0 +1,134 @@
+
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="container-fluid col-lg-4 col-md-12 col-sm-12">
+<mat-card class="mt-2 mb-4">
+  <div class="container text-center">
+    <h2 class="display-2">Material Form</h2>
+  </div>
+  <form (submit)="onSubmit(materialForm)" #materialForm="ngForm">
+
+      <input
+
+        type="hidden"
+        name="_id"
+        #_id="ngModel"
+        [(ngModel)] = "this.materialsService.selectedMaterial._id"
+        placeholder="Enter material ID:"
+        #materialID = "ngModel">
+
+    <mat-form-field>
+      <input
+        matInput
+        [(ngModel)] = "this.materialsService.selectedMaterial.materialID"
+        type="text"
+        name="materialID"
+        ngModel
+        placeholder="Enter material ID:"
+        required
+        minlength="3"
+        #materialID = "ngModel">
+      <mat-error *ngIf="materialID.invalid">Please enter a material ID!</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+        matInput
+        [(ngModel)] = "this.materialsService.selectedMaterial.materialName"
+        type="text"
+        name="materialName"
+        ngModel
+        placeholder="Enter material Name:"
+        required
+        minlength="3"
+        #materialName = "ngModel"
+        >
+      <mat-error *ngIf="materialName.invalid">Please enter a material name!</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+        matInput
+        [(ngModel)] = "this.materialsService.selectedMaterial.pointsPerKg"
+        type="text"
+        name="pointsPerKg"
+        ngModel
+        placeholder="Enter points per KG of material:"
+        required
+        minlength="3"
+        #pointsPerKg = "ngModel">
+      <mat-error *ngIf="pointsPerKg.invalid">Please enter a point per Kg of material!</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <textarea
+        matInput
+        [(ngModel)] = "this.materialsService.selectedMaterial.description"
+        rows="10"
+        name="description"
+        ngModel
+        #postData
+        required
+        placeholder="Enter description:"
+        #description="ngModel"></textarea>
+      <mat-error *ngIf="description.invalid">Please write a description!</mat-error>
+    </mat-form-field>
+    <br>
+    <div class="container-fluid text-right mt-2">
+      <button class="mr-2" mat-raised-button color="success" type ="submit" [disabled]="!materialForm.valid">Submit</button>
+      <button mat-raised-button color="success" (click)="resetForm(materialForm)" >Reset</button>
+    </div>
+
+
+
+  </form>
+
+</mat-card>
+
+<!--<mat-card>
+  <mat-form-field>
+    <textarea matInput rows="10" [(ngModel)]="enteredContent"></textarea>
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)='onAddPost2()'>Save Post</button>
+
+</mat-card>
+-->
+
+  </div>
+
+
+  <div class="container-fluid col-lg-8 col-md-12 col-sm-12">
+    <mat-card class="mt-2">
+    <div class="container text-center">
+      <h1 class="display-2">List of Materials</h1>
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col" class="materialID_col">Material ID</th>
+          <th scope="col" class="materialName_col">Material Name</th>
+          <th scope="col" class="pointsPerKg_col">Points per Kg</th>
+          <th scope="col" class="description_col">Description</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr scope="row" *ngFor="let material of materialData">
+          <td>{{material.materialID}}</td>
+          <td>{{material.materialName}}</td>
+          <td>{{material.pointsPerKg}}</td>
+          <td>{{material.description}}</td>
+          <td>
+            <a class="mb-1 mr-1" (click)="onEdit(material)" mat-mini-fab color="primary"><mat-icon>edit</mat-icon></a>
+            <a class="mb-1 mr-1" (click)="onDelete(material._id, materialForm)"mat-mini-fab color="primary"><mat-icon>delete</mat-icon></a>
+          </td>
+        </tr>
+      </tbody>
+
+    </table>
+  </mat-card>
+  </div>
+
+</div>
+</div>

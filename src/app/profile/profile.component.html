@@ -1,0 +1,234 @@
+<user-nav>
+  <!--title bar with pic-->
+  <div class="page-header" [style.background]="'url(/assets/home-pic/recycler_bla35_169.jpg)'">
+    <div class="container-fluid ">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+              <div class="page-caption">
+                <h1 class="page-title">Manage Profile</h1>
+              </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <main>
+    <div class="container-fluid con-main">
+      <!-- personal detail input group START -->
+      <div class="row mt-2 row-form">
+        <!-- personal detail button group and header START -->
+        <div class="row row-control ">
+          <h2>Personal Information</h2>
+          <div class="spacer"></div>
+          <div class="row row-action">
+            <a mat-button (click)="resetUser()" *ngIf="isEditingUser" class="btn-cancel">Cancel</a>
+            <a mat-button (click)="editUserData()" id="btnEdit1" mode="edit" class="btn-edit"> {{ isEditingUser? 'Save' : 'Edit' }} </a>
+          </div>
+        </div>
+        <!-- personal detail button group and header END -->
+        <!-- personal detail from START -->
+        <mat-card class="card-form">
+          <!-- recycler form START -->
+          <div class="form-container col-12" *ngIf="userType=='recycler'">
+
+            <form [formGroup]="form_recycler"   *ngIf="userType=='recycler'">
+              <mat-form-field appearance="outline">
+                <mat-label>Username</mat-label>
+                <input
+                  name="username"
+                  value='jeff hohohoho seh liao'
+
+                  matInput
+                  type="text"
+                  formControlName="username"
+                  (ngModelChange)="validateRecyclerInput('recycler_username')"
+                  >
+                  <mat-error *ngIf="form_recycler.get('username').invalid">{{ recycler_usernameError  }}</mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Password</mat-label>
+                <input
+                  name="password"
+                  matInput
+                  [type]="hide ? 'password' : 'text'"
+
+                  formControlName="password"
+                  (ngModelChange)="validateRecyclerInput('recycler_password')"
+                  placeholder="new password"
+                  >
+                  <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  </button>
+                  <mat-error *ngIf="form_recycler.get('password').invalid">{{ recycler_passwordError }}</mat-error>
+              </mat-form-field>
+
+
+              <mat-form-field appearance="outline">
+                <mat-label>Full Name</mat-label>
+                <input
+                  name="fullName"
+                  matInput
+                  type="text"
+
+                  formControlName="fullName"
+                  (ngModelChange)="validateRecyclerInput('recycler_fullName')"
+
+                  >
+                  <mat-error *ngIf="form_recycler.get('fullName').invalid">{{ recycler_fullNameError }}</mat-error>
+              </mat-form-field>
+            </form>
+          </div>
+          <!-- recycler form END -->
+          <!-- collector form START -->
+          <div class="form-container col-12" *ngIf="userType=='collector'">
+
+            <form [formGroup]="form_collector"   *ngIf="userType=='collector'">
+              <mat-form-field appearance="outline">
+                <mat-label>Username</mat-label>
+                <input
+                  name="username"
+                  matInput
+                  type="text"
+                  formControlName="username"
+                  (ngModelChange)="validateCollectorInput('collector_username')"
+                  required
+                  >
+                  <mat-error *ngIf="form_collector.get('username').invalid">{{ collector_usernameError  }}</mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Password</mat-label>
+                <input
+                  name="password"
+                  matInput
+                  [type]="hide ? 'password' : 'text'"
+                  formControlName="password"
+                  (ngModelChange)="validateCollectorInput('collector_password')"
+                  placeholder="new password"
+                  >
+                  <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  </button>
+                  <mat-error *ngIf="form_collector.get('password').invalid">{{ collector_passwordError }}</mat-error>
+              </mat-form-field>
+
+
+
+              <mat-form-field appearance="outline">
+                <mat-label>Full Name</mat-label>
+                <input
+                  name="fullName"
+                  matInput
+                  type="text"
+                  formControlName="fullName"
+                  (ngModelChange)="validateCollectorInput('collector_fullName')"
+                  required
+                  >
+                  <mat-error *ngIf="form_collector.get('fullName').invalid">{{ collector_fullNameError }}</mat-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Address</mat-label>
+                <textarea rows="1" cols="80"
+                  name="address"
+                  matInput
+                  type="text"
+                  formControlName="address"
+                  (ngModelChange)="validateCollectorInput('collector_address')"
+                  required
+                  ></textarea>
+                  <mat-error *ngIf="form_collector.get('address').invalid">{{ collector_addressError }}</mat-error>
+              </mat-form-field>
+            </form>
+          </div>
+          <!-- collector form END -->
+        </mat-card>
+        <!-- personal detail from END -->
+      </div>
+      <!-- personal detail input group END -->
+
+      <!-- Schedule table START -->
+      <div class="row row-table " *ngIf="userType=='collector'">
+        <div class="row row-control">
+          <h2>Collector Schedule</h2>
+          <div class="spacer"></div>
+          <div class="row row-action">
+            <a mat-button (click)="resetSched()" *ngIf="isEditingSched" class="btn-cancel">Cancel</a>
+            <a mat-button (click)="editScheduleData()" id="btnEdit2" mode="edit" class="btn-edit"> {{ isEditingSched? 'Save' : 'Edit' }} </a>
+          </div>
+        </div>
+        <div class="table-con col-12" *ngIf="userType=='collector'">
+          <mat-card class="card-schedule">
+            <mat-card-content>
+              <table #timeTable class="table" id="timeTable">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>start time</th>
+                    <th>end time</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let day of week">
+                    <td class="myCol"><b>{{ day.day }}</b></td>
+                    <td class="myCol" #col2 (click)="onClick(col2)" [attr.editing]="isEditingSched" edited="false" mode="edit">{{ day.startTime }}</td>
+                    <td class="myCol" #col3 (click)="onClick(col3)" [attr.editing]="isEditingSched" edited="false" mode="edit">{{ day.endTime }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </mat-card-content>
+          </mat-card>
+          <div class="haveError tableError text-center">{{ errorMessage }}</div>
+          {{ tableLoaded(timeTable) }}
+        </div>
+      </div>
+      <!-- Schedule table END -->
+
+
+      <!-- collectorMaterial START -->
+      <div class="row row-mat-table" *ngIf="userType=='collector'">
+        <div class="row row-control">
+          <h2>Material Preferences</h2>
+          <div class="spacer"></div>
+          <div class="row row-action">
+            <a mat-button (click)="openDialog()"  class="btn-edit">Manage</a>
+            <!--<a mat-button (click)="resetSched()" *ngIf="isEditingSched" class="btn-cancel">Cancel</a>-->
+            <!--<a mat-button (click)="editScheduleData()" id="btnEdit2" mode="edit" class="btn-edit"> Edit </a>-->
+          </div>
+        </div>
+
+        <div class="table-con col-12" *ngIf="userType=='collector'">
+          <mat-card class="card-colMat">
+            <table class="table table-colMat" *ngIf="collectorMaterials.length!=0" >
+              <thead>
+                <tr>
+                  <th>Material Id</th>
+                  <th>Material Name</th>
+                  <th>Points Per Kg</th>
+                </tr>
+              </thead>
+              <tbody >
+                <tr *ngFor="let material of collectorMaterials">
+                  <td>{{ material.materialID }}</td>
+                  <td>{{ material.materialName }}</td>
+                  <td>{{ material.pointsPerKg }}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div *ngIf="collectorMaterials.length==0" class="text-center">
+              <br>
+              No material yet, click <span class="btn-edit" (click)="openDialog()">Manage</span> to add more
+              <br><br>
+            </div>
+          </mat-card>
+        </div>
+
+      </div>
+      <!-- collectorMaterial END -->
+
+
+    </div>
+  </main>
+</user-nav>

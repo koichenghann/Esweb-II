@@ -1,0 +1,200 @@
+.page-header {
+	background-repeat:no-repeat;
+  position: relative;
+  background-size: cover;
+  background-position:50% 30%;
+}
+.page-caption {
+  padding-top: 5rem;
+  padding-bottom: 4rem;
+}
+.page-title { font-size: 3.5em;
+  line-height: 1;
+  color: #ffffff;
+  font-weight: 320;
+  text-align: center;
+}
+.box_shadow{
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
+.btn_color{
+  background-color: teal;
+}
+
+.page-area{
+  /*background-color: #f8f8ff;*/
+  min-height: 100%;
+}
+
+
+
+
+.cap{
+	max-width: 60rem;
+	min-width: 10rem;
+	display: inline-block;
+}
+
+.expandedCell{
+  border-top: none;
+	padding: 0;
+	padding-top: 0.8rem;
+	width: 100%;
+}
+.expandedCell div {
+	margin: 0;
+	padding: 0;
+	margin-bottom: 17px;
+}
+.table-submissions{
+	max-width: 60rem;
+
+}
+.table-submissions > thead {
+
+}
+.table-submissions > thead tr {
+
+}
+
+.table-submissions > thead tr th {
+  border-top: none;
+}
+/*
+.table-submissions > thead tr th:nth-child(1) {
+}
+.table-submissions > thead tr th:nth-child(2) {
+}
+.table-submissions > thead tr th:nth-child(3) {
+}
+.table-submissions > thead tr th:nth-child(4) {
+}
+*/
+
+.table-submissions > tbody tr td:nth-child(1), .table-submissions > thead tr th:nth-child(1) {
+  width: 5rem !important;
+}
+.table-submissions > tbody tr td:nth-child(2), .table-submissions > thead tr th:nth-child(2) {
+  width: 10rem !important;
+}
+.table-submissions > tbody tr td:nth-child(3), .table-submissions > thead tr th:nth-child(3) {
+  width: 10rem !important;
+}
+.table-submissions > tbody tr td:nth-child(4), .table-submissions > thead tr th:nth-child(4) {
+  width: 10rem !important;
+}
+.table-submissions > tbody tr td:nth-child(5), .table-submissions > thead tr th:nth-child(4) {
+  width: 10rem !important;
+}
+.table-submissions > tbody tr td:nth-child(6), .table-submissions > thead tr th:nth-child(4) {
+  width: 10rem !important;
+}
+.table-submissions > tbody tr td:nth-child(7), .table-submissions > thead tr th:nth-child(4) {
+  width: 4rem !important;
+}
+.table-submissions > tbody tr td:nth-child(8), .table-submissions > thead tr th:nth-child(4) {
+  width: 1rem !important;
+}
+
+
+.table-materials > tbody tr td:nth-child(1), .table-materials > thead tr th:nth-child(1) {
+	width: 11rem !important;
+}
+.table-materials > tbody tr td:nth-child(2), .table-materials > thead tr th:nth-child(2) {
+	width: 11rem !important;
+}
+.table-materials > tbody tr td:nth-child(3), .table-materials > thead tr th:nth-child(3) {
+	width: 26rem !important;
+}
+.table-materials > tbody tr td:nth-child(4), .table-materials > thead tr th:nth-child(4) {
+	width: 12rem !important;
+}
+.table-materials > tbody tr td:nth-child(5), .table-materials > thead tr th:nth-child(5) {
+	width: 2rem !important;
+}
+
+.table-materials tr > td:nth-child(5) span{
+	/*visibility: hidden;*/
+	color: blue;
+	font-weight: lighter;
+}
+.table-materials tr > td:nth-child(5) span:hover{
+	text-decoration: underline;
+}
+/*.table-materials tr:hover > td:nth-child(5) span{
+	visibility: visible;
+	color: blue;
+	font-weight: lighter;
+}*/
+
+
+pre{
+	margin: -17px 3%;
+}
+
+h2{
+	margin-top: 1rem;
+}
+
+mat-card {
+  max-width: 60rem;
+  margin: auto;
+  padding:  0;
+}
+mat-card-content {
+}
+tr[hide="true"] {
+  background-color: blue;
+  display: none;
+}
+tr[hide="false"] {
+  background-color: #f7f7f7;
+}
+tr[expanded="true"] {
+	color: blue;
+	background-color: #f7f7f7;
+}
+
+
+
+
+
+.card-my {
+	width: 100% !important;
+  max-width: 60rem;
+}
+
+
+.row-submissions-table, .row-material-table, .row-action {
+  max-width: 60rem;
+  margin: auto;
+}
+.row-action {
+	margin-bottom: 0.4rem;
+}
+.row-submissions-table, .row-material-table{
+  margin-top: 4rem!important;
+}
+.admin-row {
+	margin-top: 0 !important;
+}
+.row-control{
+  width: 100%;
+  margin: auto;
+	margin-left: 0.1rem !important;
+}
+.spacer {
+  flex:1 1 auto;
+}
+
+.btn-back{
+  color: blue;
+  font-weight: lighter;
+}
+.btn-back:hover{
+	text-decoration: underline;
+}
+
+.table-submissions tbody tr:hover {
+	background-color: #f7f7f7
+}

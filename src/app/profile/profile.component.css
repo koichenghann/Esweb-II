@@ -1,0 +1,145 @@
+.page-header {
+	background-repeat:no-repeat;
+  position: relative;
+  background-size: cover;
+  background-position:50% 30%;
+}
+.page-caption {
+  padding-top: 5rem;
+  padding-bottom: 4rem;
+}
+.page-title { font-size: 3.5em;
+  line-height: 1;
+  color: #ffffff;
+  font-weight: 320;
+  text-align: center;
+}
+.box_shadow{
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
+.btn_color{
+  background-color: teal;
+}
+
+
+
+
+
+.form-container{
+  height: auto;
+  padding: 0;
+}
+.form-container mat-form-field{
+  width: 50%;
+  min-width: 19rem;
+  max-width: 50% !important;
+  padding: 0.4rem 1.2rem;
+}
+.con-main{
+}
+.row-form, .row-table, .row-mat-table, .row-action {
+  max-width: 60rem;
+  margin: auto;
+}
+.row-form, .row-table{
+  margin-top: 4rem!important;
+}
+.row-mat-table{
+	margin-top: 3.3rem!important;
+	margin-bottom: 5rem !important;
+}
+.card-form {
+  width: 100% !important;
+  max-width: 60rem;
+  padding: 1.8rem 1.2rem 0.7rem 1.2rem !important;
+}
+.card-schedule {
+	padding: 0 !important;
+}
+.card-colMat{
+	padding: 0 !important;
+}
+.row-control{
+  width: 100%;
+  margin: auto;
+	margin-left: 0.1rem !important;
+}
+
+
+
+.spacer {
+  flex:1 1 auto;
+}
+/* table */
+.myTitle{
+  margin: 0 !important;
+}
+.myDesc{
+  margin-bottom: 1rem;
+}
+.haveError{
+  color: red !important;
+}
+.tableError{
+  height: 1rem;
+}
+.table-con{
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+/*td:nth-child(1){
+  font-weight: bold;
+}*/
+td:nth-child(1){
+}
+td:nth-child(2), td:nth-child(3){
+  width: 40%;
+  text-align: center;
+}
+th:nth-child(2), th:nth-child(3){
+  text-align: center;
+}
+th:nth-child(1){
+  max-width: 12rem;
+  min-width: 5rem;
+}
+tr{
+  height: 3.2rem !important;
+}
+table{
+  table-layout: fixed !important;
+  margin: 0 !important;
+}
+td[editing='false'] {
+  color: #b5b5b5;
+}
+td[editing='true'] {
+  color: #636363;
+}
+td[editing='true']:hover{
+  background-color: #ededed;
+  border: solid 1px;
+}
+.table > thead > tr:first-child > th {
+    border-top: none;
+}
+
+/*.table > thead > tr > th{
+	border: none;
+}*/
+
+
+.btn-cancel{
+  color: red;
+  font-weight: lighter;
+}
+.btn-edit{
+  color: blue;
+  font-weight: lighter;
+}
+
+.btn-edit:hover{
+	text-decoration: underline;
+}
