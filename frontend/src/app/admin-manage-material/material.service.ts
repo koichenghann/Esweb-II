@@ -3,6 +3,10 @@ import { Injectable } from '@angular/core'
 import { Subject } from 'rxjs';
 import { HttpClient } from  "@angular/common/http";
 
+import { environment } from '../../environments/environment';
+
+const BACKEND_URL = environment.apiUrl + '/material';
+
 @Injectable({providedIn: 'root'})
 export class MaterialsService {
 
@@ -45,7 +49,7 @@ export class MaterialsService {
     return this.materialExistListener.asObservable();
   }
   checkMaterialExist(materialName) {
-    this.http.post<any>('http://localhost:3000/api/material/findMaterial', {materialName:materialName}).subscribe( result => {
+    this.http.post<any>(BACKEND_URL + '/findMaterial', {materialName:materialName}).subscribe( result => {
       if ( result.length > 0 ) {
         this.materialExistListener.next(result[0]);
       }
@@ -66,16 +70,16 @@ export class MaterialsService {
 
   //submit new material
   submitMaterial(material: Material){
-    return this.http.post('http://localhost:3000/api/material/createMaterial', material);
+    return this.http.post(BACKEND_URL + '/createMaterial', material);
   }
 
   //get materials
   getAllMaterials(){
-    return this.http.get<{materials: any}>('http://localhost:3000/api/material/getMaterials');
+    return this.http.get<{materials: any}>(BACKEND_URL + '/getMaterials');
   }
 
  putMaterial(material: Material){
-   return this.http.put("http://localhost:3000/api/material/updateMaterial",
+   return this.http.put(BACKEND_URL + "/updateMaterial",
     {
       _id: material._id,
       materialID: material.materialID,
@@ -87,12 +91,12 @@ export class MaterialsService {
  }
 
  deleteMaterial(_id: String) {
-   return this.http.delete("http://localhost:3000/api/material/"  +_id)
+   return this.http.delete(BACKEND_URL +_id)
  }
 
 
  getCollectors(materialId) {
-   return this.http.post("http://localhost:3000/api/material/getCollectors", {materialId: materialId});
+   return this.http.post(BACKEND_URL + "/getCollectors", {materialId: materialId});
  }
 
 

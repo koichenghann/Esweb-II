@@ -6,6 +6,10 @@ import { UserData } from './user-data.model';
 import { map } from 'rxjs/operators';
 import { Observable, Subject } from 'rxjs';
 
+import { environment } from '../../environments/environment';
+
+const BACKEND_URL = environment.apiUrl + '/user';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -78,7 +82,7 @@ export class AuthService implements OnInit{
 
   getPoints() {
     this.http.post<{totalPoints: number, ecoLevel: string}>(
-      "http://localhost:3000/api/user/getUser",
+      BACKEND_URL + "/getUser",
       {_id: this.getUserId()}
     )
     .subscribe( result => {
@@ -95,7 +99,7 @@ export class AuthService implements OnInit{
   }
   checkRecyclerExist(username){
     this.http.post<any>(
-      "http://localhost:3000/api/user/findUser",
+      BACKEND_URL + "/findUser",
       { username: username})
       .subscribe( result => {
         //console.log(result[0]);
@@ -108,7 +112,7 @@ export class AuthService implements OnInit{
 
 
   getRecyclers() {
-    return this.http.post<any>("http://localhost:3000/api/user/getRecyclers", {});
+    return this.http.post<any>( BACKEND_URL + "/getRecyclers", {});
   }
 
 
@@ -118,7 +122,7 @@ export class AuthService implements OnInit{
     let userID = this.getUserId();
     //console.log("uid" + userID);
     this.http
-      .post<{materials:any}>( 'http://localhost:3000/api/user/getCollectorMaterial', { userID: userID } )
+      .post<{materials:any}>( BACKEND_URL +  '/getCollectorMaterial', { userID: userID } )
       .subscribe( result => {
         if ( result ) {
           //console.log('getMaterial: ');
@@ -140,7 +144,7 @@ export class AuthService implements OnInit{
     return this.userRetrieved.asObservable();
   }
   getUser() {
-    this.http.post<{username: string, fullName: string, totalPoints: number, ecoLevel: string, address: string}>("http://localhost:3000/api/user/getUser", { _id: this.getUserId() }).subscribe(
+    this.http.post<{username: string, fullName: string, totalPoints: number, ecoLevel: string, address: string}>( BACKEND_URL + "/getUser", { _id: this.getUserId() }).subscribe(
       result => {
         if ( result ) {
           this.userRetrieved.next(result);
@@ -161,7 +165,7 @@ export class AuthService implements OnInit{
     return this.scheduleRetrieved.asObservable();
   }
   getSchedule() {
-    this.http.post<{day: string, startTime: string, endTime: string}[]>('http://localhost:3000/api/user/getSchedule', {userId: this.getUserId()})
+    this.http.post<{day: string, startTime: string, endTime: string}[]>(BACKEND_URL + '/getSchedule', {userId: this.getUserId()})
     .subscribe( result => {
       if ( result ) {
         this.scheduleRetrieved.next(result);
@@ -186,7 +190,7 @@ export class AuthService implements OnInit{
 
      this.http
       .post(
-        "http://localhost:3000/api/user/updateProfile",
+        BACKEND_URL + "/updateProfile",
         { userData, userId }
       )
       .subscribe( result => {
@@ -199,7 +203,7 @@ export class AuthService implements OnInit{
   updateSchedule( scheduleData:any, userId: string ){
     this.http
       .post(
-        "http://localhost:3000/api/user/updateSchedule",
+        BACKEND_URL + "/updateSchedule",
         { scheduleData, userId }
       )
       .subscribe(
@@ -214,7 +218,7 @@ export class AuthService implements OnInit{
   updateMaterial( materials: any, userId: string ){
     this.http
       .post(
-        "http://localhost:3000/api/user/updateCollectorMaterial",
+        BACKEND_URL + "/updateCollectorMaterial",
         { materials, userId }
       )
       .subscribe(
@@ -252,7 +256,7 @@ export class AuthService implements OnInit{
     //console.log('part 2 ran');
     let collectorData = {userData, scheduleData};
     this.http
-      .post("http://localhost:3000/api/user/createCollector", collectorData)
+      .post(BACKEND_URL + "/createCollector", collectorData)
       .subscribe( result =>{
           //console.log('schedule created successfully, id: ' + result);
           alert("Signup Succesfull.\nRedirecting to login page.");
@@ -295,7 +299,7 @@ export class AuthService implements OnInit{
         userType: userType
       }
       this.http
-        .post("http://localhost:3000/api/user/signup", userData)
+        .post(BACKEND_URL + "/signup", userData)
         .subscribe(() => {
           this.router.navigate(["/auth/login"]);
         }, error => {
@@ -315,7 +319,7 @@ export class AuthService implements OnInit{
         userType: userType
       }
       this.http
-        .post("http://localhost:3000/api/user/signup", userData)
+        .post(BACKEND_URL + "/signup", userData)
         .subscribe(() => {
           this.router.navigate(["/auth/login"]);
         }, error => {
@@ -327,7 +331,7 @@ export class AuthService implements OnInit{
 
   private userFound = true;
   checkUserExist(username: String){
-    this.http.get<{userFound: String}>("http://localhost:3000/api/user/checkUserExist/" + username).subscribe(
+    this.http.get<{userFound: String}>(BACKEND_URL + "/checkUserExist/" + username).subscribe(
       (result) => {
         if(result.userFound){
           this.uniqueUsernameListener.next(false);
@@ -345,7 +349,7 @@ export class AuthService implements OnInit{
 
     this.http
       .post<{token: string, expiresIn: number, username:string, fullName:string, userId: string, userType: string}>(
-        "http://localhost:3000/api/user/login", credential
+        BACKEND_URL + "/login", credential
       )
       .subscribe(response => {
         const token = response.token;
@@ -436,7 +440,7 @@ export class AuthService implements OnInit{
   }
 
   findUser(username) {
-    return this.http.post("http://localhost:3000/api/user/findUser", { username: username });
+    return this.http.post(BACKEND_URL + "/findUser", { username: username });
   }
 
 

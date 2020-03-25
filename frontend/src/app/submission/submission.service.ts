@@ -5,7 +5,9 @@ import { Observable, Subject } from 'rxjs';
 import { MaterialService } from '../datatable/shared/material.service';
 import { AuthService } from '../auth/auth.service';
 
+import { environment } from '../../environments/environment';
 
+const BACKEND_URL = environment.apiUrl + '/submission';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +31,7 @@ export class SubmissionService implements OnInit{
     console.log('reached updateSubmission at service');
     this.http
       .post(
-        'http://localhost:3000/api/submission/updateSubmission',
+        BACKEND_URL + '/updateSubmission',
         {submission: submission}
       )
       .subscribe( result => {
@@ -41,7 +43,7 @@ export class SubmissionService implements OnInit{
   addSubmission(submission) {
     this.http
       .post(
-        'http://localhost:3000/api/submission/addSubmission',
+        BACKEND_URL + '/addSubmission',
         {submission: submission}
       )
       .subscribe( result => {
@@ -66,7 +68,7 @@ export class SubmissionService implements OnInit{
   //ask backend to generate dummy submissions
   genDummySub() {
     console.log('gen dummy rans');
-    this.http.post( 'http://localhost:3000/api/submission/test', { message: 'gay' } ).subscribe();
+    this.http.post( BACKEND_URL + '/test', { message: 'gay' } ).subscribe();
   }
 
 
@@ -99,7 +101,7 @@ export class SubmissionService implements OnInit{
     this
       .http
       .post(
-        'http://localhost:3000/api/submission/getSubmissions',
+        BACKEND_URL + '/getSubmissions',
         criteria
       )
       .subscribe( result => {
