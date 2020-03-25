@@ -9,6 +9,7 @@ const Schedule = require("../models/schedule");
 
 exports.test = ( req, res, next ) => {
   console.log('test');
+  res.status(201).json({message: 'test ran'});
 }
 
 exports.findUser = ( req, res, next ) => {
