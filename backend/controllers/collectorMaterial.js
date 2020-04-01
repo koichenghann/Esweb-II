@@ -49,7 +49,7 @@ exports.getMaterials = ( req, res, next ) => {
     .find({collectorID: req.body.userID})
     .populate( 'materialID' )
     .then( result => {
-      console.log(result);
+      //console.log(result);
       if ( result.length > 0 ) {
         for( let i = 0; i < result.length; i++ ){
           materials.push(result[i].materialID);
