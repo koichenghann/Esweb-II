@@ -17,7 +17,7 @@ exports.updateSchedule = (req, res, next) => {
       Schedule
         .update( { userId: userId, day: day }, sched )
         .then( result => {
-          //console.log(result);
+          res.status(200).json({message:"Schedule saved succesfully"})
         })
         .catch( error => {
             console.log("error: " + error);
