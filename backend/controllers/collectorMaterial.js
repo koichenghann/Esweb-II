@@ -42,6 +42,54 @@ exports.saveMaterials = ( req, res, next ) => {
 }
 
 
+
+exports.getMaterials = ( req, res, next ) => {
+  let materials = [];
+  CollectorMaterial
+    .find({collectorID: req.body.userID})
+    .populate( 'materialID' )
+    .then( result => {
+      if ( result.length > 0 ) {
+        for( let i = 0; i < result.length; i++ ){
+          materials.push(result.materialID);
+        }
+        res.status(201).json({
+          message: 'material fetched',
+          materials: materials
+        });
+      } else {
+        res.status(201).json({
+          message: 'no material found',
+          materials: []
+        });
+      }
+
+
+      /*
+      let last = result.length-1;
+      for( let i=0; i<result.length; i++ ) {
+        Material
+          .findOne({_id:result[i].materialID})
+          .then( result => {
+            materials.push(result);
+            if ( i == last ) {
+              res.status(201).json({
+                message: 'material fetched',
+                materials: materials
+              });
+            }
+          })
+      }
+      if ( result.length == 0 ) {
+        res.status(201).json({
+          message: 'no material found',
+          materials: []
+        })
+      }*/
+    });
+}
+
+/*
 exports.getMaterials = ( req, res, next ) => {
   let materials = [];
   CollectorMaterial
@@ -69,7 +117,7 @@ exports.getMaterials = ( req, res, next ) => {
       }
     });
 }
-
+*/
 
 exports.getCollectors = ( req, res, next ) => {
   let collector = [];

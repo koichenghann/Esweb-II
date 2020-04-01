@@ -28,6 +28,46 @@ exports.createMaterial = (req, res, next) => {
     description :  req.body.description,
     pointsPerKg : req.body.pointsPerKg
   });
+  Material.find({},{materialID:1}).sort('-materialID').limit(1).then( result => {
+    material.materialID = "M"+  ("000000" + (Number(result[0].materialID.slice(-6)) + 1)).slice(-6);
+
+    material
+    .save().
+    then(result => {
+      res.status(201).json({
+        message: 'Material created succesfully!',
+        result: result
+      });
+    })
+    .catch( err => {
+      res.status(500).json({
+        message: "Failed to create new Material"
+      });
+    });
+  });  
+}
+
+exports.resetMaterialID = (req, res, next) => {
+  console.log('materialID reset ran');
+  Material.find({},{materialID:1}).then( result => {
+    for ( let i = 0; i < result.length; i++ ) {
+      let newID = "M"+  ("000000" + i).slice(-6);
+      Material.updateOne({ _id: result[i]._id }, { materialID: newID }).then( result => {
+        console.log(result);
+      });
+    }
+  });
+}
+
+/*
+//create material
+exports.createMaterial = (req, res, next) => {
+  const material = new Material({
+    materialID  : req.body.materialID,
+    materialName:  req.body.materialName,
+    description :  req.body.description,
+    pointsPerKg : req.body.pointsPerKg
+  });
   material
   .save().
   then(result => {
@@ -42,7 +82,7 @@ exports.createMaterial = (req, res, next) => {
     });
   });
 }
-
+*/
 
 //get all Material in database
 exports.getMaterials = (req, res, next) => {

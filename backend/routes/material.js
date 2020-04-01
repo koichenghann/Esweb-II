@@ -13,8 +13,10 @@ router.delete("/:_id", MaterialController.deleteMaterial);
 router.get("/checkMaterialExist/:materialID", MaterialController.checkMaterialExist);
 
 router.post("/findMaterial", MaterialController.findMaterial);
+router.post("/resetMaterial", MaterialController.resetMaterialID);
 //router.get("/test", MaterialController.test);
 
 router.post("/getCollectors", CollectorMaterialController.getCollectors)
+
 
 module.exports = router;
